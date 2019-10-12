@@ -8,9 +8,7 @@ jobs:
       - checkout
 
       - run:
-          name: Greeting
-          command: echo Hello, world.
-
-      - run:
-          name: Print the Current Time
-          command: date
+          name: Get the data
+          command: |
+             R -q -e "rmarkdown::render('index.Rmd',output_file='index.html')"
+             
