@@ -1,9 +1,16 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output: html_document
 ---
 
-```{bash}
+```{bash, eval = FALSE}
 curl -G https://query.wikidata.org/bigdata/namespace/wdq/sparql --data-urlencode query="$(< query_entreprises.sparql)" -H 'Accept: text/csv' > entreprises.csv
 curl -G https://query.wikidata.org/bigdata/namespace/wdq/sparql --data-urlencode query="$(< query_etablissements.sparql)" -H 'Accept: text/csv' > etablissements.csv
 ```
+
+# this is a test
+
+```{r}
+plot(iris)
+```
+
