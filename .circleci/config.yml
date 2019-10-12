@@ -1,16 +1,24 @@
 version: 2
 jobs:
-  build:
+  update-and-publish:
     docker:
-      - image: debian:stretch
-
-    steps:
+      - image:  rocker/tidyverse
+    steps: 
       - checkout
-
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: Get the data
+          command: |
+             R -q -e "rmarkdown::render('index.Rmd',output_file='index.html')"
 
-      - run:
-          name: Print the Current Time
-          command: date
+workflows:
+  version: 2
+  weekly:
+    triggers:
+      - schedule:
+          cron: 10 10 * * *
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - update-and-publish
