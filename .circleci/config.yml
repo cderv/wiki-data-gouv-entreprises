@@ -3,23 +3,22 @@ jobs:
   update-and-publish:
     docker:
       - image:  rocker/tidyverse
-      
     steps: 
       - checkout
       - run:
           name: Get the data
           command: |
-             R -e "rmarkdown::render('index.Rmd',output_file='index.html')"
+             R -q -e "rmarkdown::render('index.Rmd',output_file='index.html')"
 
 workflows:
-    version: 2
-    weekly:
-        jobs:
-            - update-and-publish
-        triggers:
-            - schedule:
-                cron: 10 10 * * *
-                filters:
-                    branches:
-                        only:
-                            - master
+  version: 2
+  weekly:
+    triggers:
+      - schedule:
+          cron: 10 10 * * *
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - update-and-publish
